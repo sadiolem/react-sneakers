@@ -1,0 +1,9 @@
+@import "../assets/styles/mixins";
+
+.home {
+  padding: 45px 60px;
+
+  @include mobile-max {
+    padding: 20px;
+  }
+}

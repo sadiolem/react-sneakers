@@ -1,0 +1,8 @@
+@import './assets/styles/mixins.scss';
+
+.wrapper {
+    @include container;
+
+    background-color: var(--primary-bg-color);
+    border-radius: var(--default-border-radius);
+}

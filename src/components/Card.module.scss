@@ -1,0 +1,16 @@
+.card {
+  padding: 30px;
+  border: 1px solid #F3F3F3;
+  border-radius: 40px;
+
+  .card-inner-wrapper {
+    display: grid;
+    gap: 14px;
+  }
+
+  .price-and-cart-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

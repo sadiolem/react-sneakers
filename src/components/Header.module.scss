@@ -1,0 +1,15 @@
+@import "../assets/styles/mixins";
+
+.header {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  padding: 45px;
+  border-bottom: 1px solid #EAEAEA;
+
+  @include mobile-max {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
+}
