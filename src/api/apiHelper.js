@@ -1,20 +1,18 @@
-export default async (method, url, ...args) => {
+export default async (method, url, body) => {
   const baseUrl = 'https://63a7501359fd83b1bb43465b.mockapi.io';
 
   try {
     const data = await fetch(`${baseUrl}/${url}`, {
       method,
-      ...args,
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify(body),
     });
 
     return await data.json();
-  } catch ({ response }) {
-    return {
-      data: null,
-      error: {
-        text: response?.data,
-        status: response?.status,
-      },
-    };
+  } catch (error) {
+    alert(error);
+    return null;
   }
 };
