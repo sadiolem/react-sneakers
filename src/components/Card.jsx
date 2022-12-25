@@ -15,7 +15,7 @@ function Card({ item, onAddToFavorite }) {
   }
 
   function handleFavoriteClick() {
-    onAddToFavorite(item);
+    onAddToFavorite(item.id);
     setIsFavorite(!isFavorite);
   }
 
