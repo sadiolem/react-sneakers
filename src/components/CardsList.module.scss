@@ -6,6 +6,10 @@
   gap: 40px;
   place-content: center;
 
+  @include desktop-sm-max {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
   @include tablet-max {
     grid-template-columns: 1fr 1fr;
   }
