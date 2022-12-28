@@ -7,11 +7,11 @@ function Card({ item, updateItem }) {
   const [isAdded, setIsAdded] = useState(item.isAdded);
 
   function getFavoriteIcon() {
-    return isFavorite ? 'EmojiFlatHeartFull' : 'EmojiFlatHeartEmpty';
+    return isFavorite ? 'FluentHeart' : 'FluentHeartEmpty';
   }
 
   function getAddIcon() {
-    return isAdded ? 'EmojiFlatCheckMark' : 'EmojiFlatPlus';
+    return isAdded ? 'FluentAddCircle' : 'FluentCheckmarkCircle';
   }
 
   function handleFavoriteClick() {
