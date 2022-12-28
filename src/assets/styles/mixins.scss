@@ -3,6 +3,12 @@
   margin: 0 auto;
 }
 
+@mixin tablet-max {
+  @media screen and (max-width: 900px) {
+    @content
+  }
+}
+
 @mixin mobile-max {
   @media screen and (max-width: 600px) {
     @content

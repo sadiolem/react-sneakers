@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styles from './Card.module.scss';
 
-function Card({ item, onAddToFavorite }) {
+function Card({ item, updateItem }) {
   const [isFavorite, setIsFavorite] = useState(item.isFavorite);
   const [isAdded, setIsAdded] = useState(item.isAdded);
 
@@ -15,13 +15,22 @@ function Card({ item, onAddToFavorite }) {
   }
 
   function handleFavoriteClick() {
-    onAddToFavorite(item.id);
     setIsFavorite(!isFavorite);
   }
 
   function handleAddClick() {
     setIsAdded(!isAdded);
   }
+
+  const initialRender = useRef(true);
+
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+      return;
+    }
+    updateItem({ ...item, isFavorite, isAdded });
+  }, [isFavorite, isAdded]);
 
   return (
     <div className={styles.card}>
@@ -68,7 +77,7 @@ Card.propTypes = {
     isFavorite: PropTypes.bool,
     isAdded: PropTypes.bool,
   }).isRequired,
-  onAddToFavorite: PropTypes.func.isRequired,
+  updateItem: PropTypes.func.isRequired,
 };
 
 export default Card;

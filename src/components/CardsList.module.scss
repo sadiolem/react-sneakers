@@ -1,6 +1,16 @@
+@import "../assets/styles/mixins";
+
 .cards-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 40px;
   place-content: center;
+
+  @include tablet-max {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include mobile-max {
+    grid-template-columns: 1fr;
+  }
 }
