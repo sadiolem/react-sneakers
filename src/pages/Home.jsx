@@ -22,6 +22,9 @@ function Home() {
 
   return (
     <main className={styles.home}>
+      <div>
+        <h1>Все кроссовки</h1>
+      </div>
       <CardsList
         cards={goods}
         updateItem={handleItemUpdate}
