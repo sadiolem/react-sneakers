@@ -23,7 +23,7 @@ function Home() {
   return (
     <main className={styles.home}>
       <div>
-        <h1>Все кроссовки</h1>
+        <h1 className={styles['home-title']}>Все кроссовки</h1>
       </div>
       <CardsList
         cards={goods}

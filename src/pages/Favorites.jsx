@@ -26,7 +26,7 @@ function Favorites() {
 
   return (
     <main className={styles.favorites}>
-      <h1>Мои закладки</h1>
+      <h1 className={styles['favorites-title']}>Мои закладки</h1>
       <CardsList
         cards={favorites}
         updateItem={handleItemUpdate}
