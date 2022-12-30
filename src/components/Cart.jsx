@@ -5,6 +5,7 @@ import styles from './Cart.module.scss';
 import CartCardsList from './CartCardsList';
 
 function Cart({ isOpen }) {
+  // TODO refactor call api to get items only once and pass it to the components
   const [cartItems, setCartItems] = useState([]);
 
   const fetchData = async () => {

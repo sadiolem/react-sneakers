@@ -4,6 +4,7 @@ import styles from './Favorites.module.scss';
 import CardsList from '../components/CardsList';
 
 function Favorites() {
+  // TODO refactor call api to get items only once and pass it to the components
   const [favorites, setFavorites] = useState([]);
 
   const fetchData = async () => {

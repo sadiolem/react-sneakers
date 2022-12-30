@@ -4,6 +4,7 @@ import CardsList from '../components/CardsList';
 import api from '../api/index';
 
 function Home() {
+  // TODO refactor call api to get items only once and pass it to the components
   const [goods, setGoods] = useState([]);
 
   const fetchData = async () => {
