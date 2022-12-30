@@ -1,12 +1,15 @@
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './HeaderNav.module.scss';
 import Drawer from './Drawer';
 import Cart from './Cart';
+import AppContext from '../context.js';
 
 function HeaderNav({ updateItem }) {
+  const { cartItems } = useContext(AppContext);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [totalCartPrice, setTotalCartPrice] = useState();
 
   const openDrawer = () => {
     setIsDrawerOpen(true);
@@ -15,6 +18,10 @@ function HeaderNav({ updateItem }) {
   const closeDrawer = () => {
     setIsDrawerOpen(false);
   };
+
+  useEffect(() => {
+    setTotalCartPrice(cartItems.reduce((acc, prev) => acc + prev.price, 0));
+  });
 
   return (
     <div className={styles['header-nav']}>
@@ -25,7 +32,7 @@ function HeaderNav({ updateItem }) {
 
         <button type="button" className={styles['cart-button']} onClick={openDrawer}>
           <img src="./img/ui-icons/FluentCart.svg" height={24} width={24} alt="cart" />
-          0 Руб.
+          {`${totalCartPrice} Руб.`}
         </button>
 
         <NavLink to="/favorites">
