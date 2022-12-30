@@ -1,26 +1,11 @@
-import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import AppContext from '../context';
 import styles from './Home.module.scss';
 import CardsList from '../components/CardsList';
-import api from '../api/index';
 
-function Home() {
-  // TODO refactor call api to get items only once and pass it to the components
-  const [goods, setGoods] = useState([]);
-
-  const fetchData = async () => {
-    const data = await api.goods.getGoods();
-    if (data) setGoods(data);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const handleItemUpdate = async (item) => {
-    await api.goods.updateGood(item.id, item);
-    fetchData();
-  };
-
+function Home({ updateItem }) {
+  const { goods } = useContext(AppContext);
   return (
     <main className={styles.home}>
       <div>
@@ -28,10 +13,14 @@ function Home() {
       </div>
       <CardsList
         cards={goods}
-        updateItem={handleItemUpdate}
+        updateItem={updateItem}
       />
     </main>
   );
 }
+
+Home.propTypes = {
+  updateItem: PropTypes.func.isRequired,
+};
 
 export default Home;

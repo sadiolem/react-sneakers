@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import styles from './HeaderNav.module.scss';
 import Drawer from './Drawer';
 import Cart from './Cart';
 
-function HeaderNav() {
+function HeaderNav({ updateItem }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const openDrawer = () => {
@@ -30,16 +31,17 @@ function HeaderNav() {
         <NavLink to="/favorites">
           <img src="./img/ui-icons/FluentHeartOutlined.svg" height={24} width={24} alt="favorites" />
         </NavLink>
-        <NavLink to="/profile">
-          <img src="./img/ui-icons/FluentClipboardBulletList.svg" height={24} width={24} alt="profile" />
-        </NavLink>
       </div>
 
       <Drawer isOpen={isDrawerOpen} close={closeDrawer}>
-        <Cart isOpen={isDrawerOpen} />
+        <Cart updateItem={updateItem} />
       </Drawer>
     </div>
   );
 }
+
+HeaderNav.propTypes = {
+  updateItem: PropTypes.func.isRequired,
+};
 
 export default HeaderNav;

@@ -7,19 +7,19 @@ function Card({ item, updateItem }) {
   const [isAdded, setIsAdded] = useState(item.isAdded);
 
   function getFavoriteIcon() {
-    return isFavorite ? 'FluentHeart' : 'FluentHeartEmpty';
+    return item.isFavorite ? 'FluentHeart' : 'FluentHeartEmpty';
   }
 
   function getAddIcon() {
-    return isAdded ? 'FluentCheckmarkCircle' : 'FluentAddCircle';
+    return item.isAdded ? 'FluentCheckmarkCircle' : 'FluentAddCircle';
   }
 
   function handleFavoriteClick() {
-    setIsFavorite(!isFavorite);
+    setIsFavorite((prev) => !prev);
   }
 
   function handleAddClick() {
-    setIsAdded(!isAdded);
+    setIsAdded((prev) => !prev);
   }
 
   const initialRender = useRef(true);
@@ -29,6 +29,7 @@ function Card({ item, updateItem }) {
       initialRender.current = false;
       return;
     }
+
     updateItem({ ...item, isFavorite, isAdded });
   }, [isFavorite, isAdded]);
 
