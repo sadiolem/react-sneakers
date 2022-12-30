@@ -22,7 +22,7 @@ function CartCard({ item, updateItem }) {
 
   return (
     <div className={styles['cart-card']}>
-      <img src={item.image} width={70} height={70} className={styles.image} alt="" />
+      <img src={`./img/goods/${item.image}`} width={70} height={70} className={styles.image} alt="" />
       <div className={styles['info-wrapper']}>
         <p>{item.name}</p>
         <p className={styles.price}>{item.price}</p>

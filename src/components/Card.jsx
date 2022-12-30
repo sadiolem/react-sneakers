@@ -45,7 +45,7 @@ function Card({ item, updateItem }) {
           <img src={`./img/ui-icons/${getFavoriteIcon()}.svg`} width={32} height={32} alt="" />
         </button>
 
-        <img src={item.image} height={112} className={styles.img} alt="" />
+        <img src={`./img/goods/${item.image}`} height={112} className={styles.img} alt="" />
 
         <p className={styles.name}>{item.name}</p>
 
