@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './HeaderNav.module.scss';
 import Drawer from './Drawer';
+import Cart from './Cart';
 
 function HeaderNav() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -35,7 +36,7 @@ function HeaderNav() {
       </div>
 
       <Drawer isOpen={isDrawerOpen} close={closeDrawer}>
-        <h1>Корзина</h1>
+        <Cart isOpen={isDrawerOpen} />
       </Drawer>
     </div>
   );

@@ -2,6 +2,11 @@
   padding: 30px;
   border: 1px solid #F3F3F3;
   border-radius: 40px;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.05);
+  }
 
   .card-inner-wrapper {
     position: relative;

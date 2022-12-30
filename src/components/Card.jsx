@@ -11,7 +11,7 @@ function Card({ item, updateItem }) {
   }
 
   function getAddIcon() {
-    return isAdded ? 'FluentAddCircle' : 'FluentCheckmarkCircle';
+    return isAdded ? 'FluentCheckmarkCircle' : 'FluentAddCircle';
   }
 
   function handleFavoriteClick() {

@@ -8,8 +8,11 @@ function Favorites() {
 
   const fetchData = async () => {
     const data = await api.goods.getGoods();
-    const favoritesItems = data.filter((item) => item.isFavorite);
-    if (data) setFavorites(favoritesItems);
+
+    if (data) {
+      const favoritesItems = data.filter((item) => item.isFavorite);
+      setFavorites(favoritesItems);
+    }
   };
 
   useEffect(() => {

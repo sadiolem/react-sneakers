@@ -1,0 +1,22 @@
+.cart-card {
+  display: grid;
+  grid-template-columns: 70px auto 32px;
+  gap: 16px;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #F3F3F3;
+  border-radius: 20px;
+
+  .image {
+    object-fit: cover;
+  }
+
+  .info-wrapper {
+    display: grid;
+    gap: 8px;
+  }
+
+  .price {
+    font-weight: var(--font-weight-bold);
+  }
+}
