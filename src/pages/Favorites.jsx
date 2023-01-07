@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AppContext from '../context';
 import styles from './Favorites.module.scss';
 import CardsList from '../components/CardsList';
+import FavoritesEmpty from '../components/FavoritesEmpty.jsx';
 
 function Favorites({ updateItem }) {
   const { favoriteItems } = useContext(AppContext);
@@ -10,10 +11,18 @@ function Favorites({ updateItem }) {
   return (
     <main className={styles.favorites}>
       <h1 className={styles['favorites-title']}>Мои закладки</h1>
-      <CardsList
-        cards={favoriteItems}
-        updateItem={updateItem}
-      />
+
+      {
+        favoriteItems.length
+          ? (
+            <CardsList
+              cards={favoriteItems}
+              updateItem={updateItem}
+            />
+          )
+          : <FavoritesEmpty />
+      }
+
     </main>
   );
 }
