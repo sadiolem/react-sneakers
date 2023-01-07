@@ -41,8 +41,10 @@ function App() {
   };
 
   const contextValue = useMemo(() => (
-    { goods, favoriteItems, cartItems }
-  ), [goods, favoriteItems, cartItems]);
+    {
+      loading, goods, favoriteItems, cartItems,
+    }
+  ), [loading, goods, favoriteItems, cartItems]);
 
   return (
     <AppContext.Provider value={contextValue}>
@@ -50,7 +52,7 @@ function App() {
         <div className={styles.wrapper}>
           <Header updateItem={handleItemUpdate} />
           <Routes>
-            <Route path="/" element={<Home updateItem={handleItemUpdate} loading={loading} />} />
+            <Route path="/" element={<Home updateItem={handleItemUpdate} />} />
             <Route path="/favorites" element={<Favorites updateItem={handleItemUpdate} />} />
           </Routes>
         </div>

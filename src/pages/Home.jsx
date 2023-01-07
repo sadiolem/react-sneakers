@@ -5,8 +5,10 @@ import styles from './Home.module.scss';
 import CardsList from '../components/CardsList';
 import CardSkeleton from '../components/CardSkeleton';
 
-function Home({ updateItem, loading }) {
+function Home({ updateItem }) {
   const { goods } = useContext(AppContext);
+  const { loading } = useContext(AppContext);
+
   return (
     <main className={styles.home}>
       <div>
@@ -38,13 +40,8 @@ function Home({ updateItem, loading }) {
   );
 }
 
-Home.defaultProps = {
-  loading: false,
-};
-
 Home.propTypes = {
   updateItem: PropTypes.func.isRequired,
-  loading: PropTypes.bool,
 };
 
 export default Home;
