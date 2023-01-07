@@ -11,7 +11,14 @@ function Cart({ updateItem, totalCartPrice, close }) {
 
   return (
     <div className={styles.cart}>
-      <h1 className={styles['cart-title']}>Корзина</h1>
+      <div className={styles['title-wrapper']}>
+        <h1 className={styles['cart-title']}>Корзина</h1>
+
+        <button type="button" aria-label="close cart" onClick={close}>
+          <img src="./img/ui-icons/FluentDismissSquare.svg" width={32} height={32} alt="" />
+        </button>
+      </div>
+
       {
         cartItems.length
           ? (
