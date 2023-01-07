@@ -32,10 +32,8 @@ function Home({ updateItem }) {
               cards={goods}
               updateItem={updateItem}
             />
-
           )
       }
-
     </main>
   );
 }
