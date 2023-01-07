@@ -41,7 +41,7 @@ function HeaderNav({ updateItem }) {
       </div>
 
       <Drawer isOpen={isDrawerOpen} close={closeDrawer}>
-        <Cart updateItem={updateItem} />
+        <Cart updateItem={updateItem} totalCartPrice={totalCartPrice} />
       </Drawer>
     </div>
   );

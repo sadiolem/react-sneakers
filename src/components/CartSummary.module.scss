@@ -1,0 +1,14 @@
+.cart-summary {
+  display: grid;
+  gap: 20px;
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+  }
+
+  .info-value {
+    font-weight: var(--font-weight-bold);
+  }
+}

@@ -1,0 +1,12 @@
+.base-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 275px;
+  padding: 17px 22px;
+  color: #fff;
+  font-weight: var(--font-weight-bold);
+  font-size: 16px;
+  border-radius: 18px;
+  background-color: #9DD558;
+}
