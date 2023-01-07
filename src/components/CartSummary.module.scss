@@ -1,6 +1,12 @@
 .cart-summary {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
   display: grid;
   gap: 20px;
+  padding: 30px;
+  border-top: 1px solid #eee;
+  background-color: var(--primary-bg-color);
 
   .info-row {
     display: flex;
