@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './HeaderNav.module.scss';
 import Drawer from './Drawer';
 import Cart from './Cart';
-import AppContext from '../context.js';
+import AppContext from '../context';
 
 function HeaderNav({ updateItem }) {
   const { cartItems } = useContext(AppContext);
@@ -41,7 +41,7 @@ function HeaderNav({ updateItem }) {
       </div>
 
       <Drawer isOpen={isDrawerOpen} close={closeDrawer}>
-        <Cart updateItem={updateItem} totalCartPrice={totalCartPrice} />
+        <Cart updateItem={updateItem} totalCartPrice={totalCartPrice} close={closeDrawer} />
       </Drawer>
     </div>
   );

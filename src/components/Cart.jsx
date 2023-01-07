@@ -6,7 +6,7 @@ import CartCardsList from './CartCardsList';
 import CartEmpty from './CartEmpty';
 import CartSummary from './CartSummary';
 
-function Cart({ updateItem, totalCartPrice }) {
+function Cart({ updateItem, totalCartPrice, close }) {
   const { cartItems } = useContext(AppContext);
 
   return (
@@ -24,7 +24,7 @@ function Cart({ updateItem, totalCartPrice }) {
               <CartSummary totalCartPrice={totalCartPrice} />
             </>
           )
-          : <CartEmpty />
+          : <CartEmpty close={close} />
       }
     </div>
   );
@@ -37,6 +37,7 @@ Cart.defaultProps = {
 Cart.propTypes = {
   updateItem: PropTypes.func.isRequired,
   totalCartPrice: PropTypes.number,
+  close: PropTypes.func.isRequired,
 };
 
 export default Cart;
