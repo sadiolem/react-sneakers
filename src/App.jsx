@@ -14,12 +14,16 @@ import api from './api';
 import AppContext from './context';
 
 function App() {
+  const [loading, setLoading] = useState(false);
   const [goods, setGoods] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
   const fetchData = async () => {
+    setLoading(true);
     const data = await api.goods.getGoods();
+    setLoading(false);
+
     if (data) {
       setGoods(data);
       setFavoriteItems(data.filter((item) => item.isFavorite));
@@ -46,7 +50,7 @@ function App() {
         <div className={styles.wrapper}>
           <Header updateItem={handleItemUpdate} />
           <Routes>
-            <Route path="/" element={<Home updateItem={handleItemUpdate} />} />
+            <Route path="/" element={<Home updateItem={handleItemUpdate} loading={loading} />} />
             <Route path="/favorites" element={<Favorites updateItem={handleItemUpdate} />} />
           </Routes>
         </div>

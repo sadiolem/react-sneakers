@@ -32,7 +32,7 @@ function HeaderNav({ updateItem }) {
 
         <button type="button" className={styles['cart-button']} onClick={openDrawer}>
           <img src="./img/ui-icons/FluentCart.svg" height={24} width={24} alt="cart" />
-          {`${totalCartPrice} Руб.`}
+          {`${totalCartPrice} руб.`}
         </button>
 
         <NavLink to="/favorites">
