@@ -1,37 +1,22 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState, useRef } from 'react';
 import styles from './Card.module.scss';
 
 function Card({ item, updateItem }) {
-  const [isFavorite, setIsFavorite] = useState(item.isFavorite);
-  const [isAdded, setIsAdded] = useState(item.isAdded);
-
   function getFavoriteIcon() {
     return item.isFavorite ? 'FluentHeart' : 'FluentHeartEmpty';
   }
 
   function getAddIcon() {
-    return item.isAdded ? 'FluentCheckmarkCircle' : 'FluentAddCircle';
+    return item.isAdded ? 'FluentCartFilled' : 'FluentCart';
   }
 
   function handleFavoriteClick() {
-    setIsFavorite((prev) => !prev);
+    updateItem({ ...item, isFavorite: !item.isFavorite });
   }
 
   function handleAddClick() {
-    setIsAdded((prev) => !prev);
+    updateItem({ ...item, isAdded: !item.isAdded });
   }
-
-  const initialRender = useRef(true);
-
-  useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false;
-      return;
-    }
-
-    updateItem({ ...item, isFavorite, isAdded });
-  }, [isFavorite, isAdded]);
 
   return (
     <div className={styles.card}>
