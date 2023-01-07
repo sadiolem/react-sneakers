@@ -20,9 +20,7 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
 
   const fetchData = async () => {
-    setLoading(true);
     const data = await api.goods.getGoods();
-    setLoading(false);
 
     if (data) {
       setGoods(data);
@@ -32,7 +30,13 @@ function App() {
   };
 
   useEffect(() => {
-    fetchData();
+    async function initialLoading() {
+      setLoading(true);
+      await fetchData();
+      setLoading(false);
+    }
+
+    initialLoading();
   }, []);
 
   const handleItemUpdate = async (item) => {

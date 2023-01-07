@@ -10,7 +10,10 @@ function CartEmpty({ close }) {
       <h2 className={styles.title}>Корзина пустая</h2>
       <p className={styles.subtitle}>Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
 
-      <BaseButton className={styles['back-btn']} onClick={close}>Вернуться назад</BaseButton>
+      <BaseButton className={styles['back-btn']} onClick={close}>
+        <img src="./img/ui-icons/FluentArrowLeft.svg" width={20} height={20} alt="" />
+        Вернуться назад
+      </BaseButton>
     </div>
   );
 }
