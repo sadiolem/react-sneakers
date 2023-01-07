@@ -18,11 +18,11 @@ function Home({ updateItem, loading }) {
           ? (
             <div className={styles['skeleton-cards-list']}>
               {
-                    [...Array(12)].map((_, index) => (
-                      // eslint-disable-next-line react/no-array-index-key
-                      <CardSkeleton key={index} />
-                    ))
-                  }
+                 [...Array(12)].map((_, index) => (
+                   // eslint-disable-next-line react/no-array-index-key
+                   <CardSkeleton key={index} />
+                 ))
+              }
             </div>
           )
           : (
