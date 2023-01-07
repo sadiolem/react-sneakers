@@ -19,7 +19,7 @@ html {
 
 body {
   margin: 0 auto;
-  padding: 80px 24px;
+  padding: 24px;
   color: var(--primary-text-color);
   font-size: 14px;
   line-height: 1.5;
@@ -27,7 +27,7 @@ body {
   background-color: #E7F6FF;
 
   @media screen and (max-width: 600px) {
-    padding: 20px 10px;
+    padding: 10px;
   }
 }
 
