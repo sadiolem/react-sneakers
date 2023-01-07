@@ -11,7 +11,7 @@ function FavoritesEmpty() {
 
   return (
     <div className={styles['favorites-empty']}>
-      <img src="./img/ui-icons/EmojiFlatWorriedFace.svg" width={70} height={70} alt="" />
+      <img src="./img/ui-icons/EmojiFlatWorriedFace.svg" width={70} height={70} className={styles.img} alt="" />
 
       <h2 className={styles.title}>Закладок нет</h2>
       <p className={styles.subtitle}>Вы ничего не добавляли в закладки</p>
