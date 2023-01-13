@@ -23,14 +23,14 @@ function Card({ item, addToFavorite, addToCart }) {
     setAddToFavoriteLoading(false);
   }, [item.isFavorite]);
 
-  async function handleFavoriteClick() {
+  function handleFavoriteClick() {
     setAddToFavoriteLoading(true);
-    await addToFavorite({ ...item, isFavorite: !item.isFavorite });
+    addToFavorite({ ...item, isFavorite: !item.isFavorite });
   }
 
-  async function handleAddClick() {
+  function handleAddClick() {
     setAddToCartLoading(true);
-    await addToCart({ ...item, isAdded: !item.isAdded });
+    addToCart({ ...item, isAdded: !item.isAdded });
   }
 
   return (
