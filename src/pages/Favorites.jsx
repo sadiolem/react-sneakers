@@ -18,7 +18,7 @@ function Favorites({ addToFavorite, addToCart }) {
         loading && (
         <div className={styles['skeleton-cards-list']}>
           {
-            [...Array(12)].map((_, index) => (
+            [...Array(8)].map((_, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <CardSkeleton key={index} />
             ))
@@ -28,15 +28,18 @@ function Favorites({ addToFavorite, addToCart }) {
       }
 
       {
-        !loading && favoriteItems.length
-          ? (
-            <CardsList
-              cards={favoriteItems}
-              addToFavorite={addToFavorite}
-              addToCart={addToCart}
-            />
-          )
-          : <FavoritesEmpty />
+        favoriteItems.length > 0 && (
+          <CardsList
+            cards={favoriteItems}
+            addToFavorite={addToFavorite}
+            addToCart={addToCart}
+          />
+        )
+      }
+
+      {
+        (!loading && !favoriteItems.length)
+          && <FavoritesEmpty />
       }
 
     </main>
