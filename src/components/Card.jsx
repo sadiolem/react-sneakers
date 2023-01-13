@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Card.module.scss';
 import BaseLoaderSpinner from './BaseLoaderSpinner';
 
@@ -15,16 +15,22 @@ function Card({ item, addToFavorite, addToCart }) {
     return item.isAdded ? 'FluentCartFilled' : 'FluentCart';
   }
 
+  useEffect(() => {
+    setAddToCartLoading(false);
+  }, [item.isAdded]);
+
+  useEffect(() => {
+    setAddToFavoriteLoading(false);
+  }, [item.isFavorite]);
+
   async function handleFavoriteClick() {
     setAddToFavoriteLoading(true);
     await addToFavorite({ ...item, isFavorite: !item.isFavorite });
-    setAddToFavoriteLoading(false);
   }
 
   async function handleAddClick() {
     setAddToCartLoading(true);
     await addToCart({ ...item, isAdded: !item.isAdded });
-    setAddToCartLoading(false);
   }
 
   return (
