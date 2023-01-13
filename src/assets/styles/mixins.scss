@@ -41,3 +41,22 @@
     background-position-x: -20%;
   }
 }
+
+@mixin skeleton-cards-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    place-content: center;
+
+    @include desktop-sm-max {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @include tablet-max {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include mobile-max {
+      grid-template-columns: 1fr;
+    }
+}

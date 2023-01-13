@@ -10,4 +10,8 @@
   .favorites-title {
     margin-bottom: 40px;
   }
+
+  .skeleton-cards-list {
+    @include skeleton-cards-list;
+  }
 }

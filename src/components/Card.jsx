@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import styles from './Card.module.scss';
+import BaseLoaderSpinner from './BaseLoaderSpinner';
 
-function Card({ item, updateItem }) {
+function Card({ item, addToFavorite, addToCart }) {
+  const [addToCartLoading, setAddToCartLoading] = useState(false);
+  const [addToFavoriteLoading, setAddToFavoriteLoading] = useState(false);
+
   function getFavoriteIcon() {
     return item.isFavorite ? 'FluentHeart' : 'FluentHeartEmpty';
   }
@@ -10,12 +15,16 @@ function Card({ item, updateItem }) {
     return item.isAdded ? 'FluentCartFilled' : 'FluentCart';
   }
 
-  function handleFavoriteClick() {
-    updateItem({ ...item, isFavorite: !item.isFavorite });
+  async function handleFavoriteClick() {
+    setAddToFavoriteLoading(true);
+    await addToFavorite({ ...item, isFavorite: !item.isFavorite });
+    setAddToFavoriteLoading(false);
   }
 
-  function handleAddClick() {
-    updateItem({ ...item, isAdded: !item.isAdded });
+  async function handleAddClick() {
+    setAddToCartLoading(true);
+    await addToCart({ ...item, isAdded: !item.isAdded });
+    setAddToCartLoading(false);
   }
 
   return (
@@ -23,11 +32,16 @@ function Card({ item, updateItem }) {
       <div className={styles['card-inner-wrapper']}>
         <button
           type="button"
+          disabled={addToFavoriteLoading}
           className={styles['favorite-btn']}
           aria-label="add to favorites"
           onClick={handleFavoriteClick}
         >
-          <img src={`./img/ui-icons/${getFavoriteIcon()}.svg`} width={32} height={32} alt="" />
+          {
+            addToFavoriteLoading
+              ? <BaseLoaderSpinner size={20} width={2} />
+              : <img src={`./img/ui-icons/${getFavoriteIcon()}.svg`} width={32} height={32} alt="" />
+          }
         </button>
 
         <img src={`./img/goods/${item.image}`} height={112} className={styles.img} alt="" />
@@ -42,11 +56,16 @@ function Card({ item, updateItem }) {
 
           <button
             type="button"
+            disabled={addToCartLoading}
             className={styles['cart-btn']}
             aria-label="add to shopping cart"
             onClick={handleAddClick}
           >
-            <img src={`./img/ui-icons/${getAddIcon()}.svg`} width={32} height={32} alt="" />
+            {
+              addToCartLoading
+                ? <BaseLoaderSpinner size={20} width={2} />
+                : <img src={`./img/ui-icons/${getAddIcon()}.svg`} width={32} height={32} alt="" />
+            }
           </button>
         </div>
       </div>
@@ -63,7 +82,8 @@ Card.propTypes = {
     isFavorite: PropTypes.bool,
     isAdded: PropTypes.bool,
   }).isRequired,
-  updateItem: PropTypes.func.isRequired,
+  addToFavorite: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default Card;

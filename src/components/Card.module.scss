@@ -19,6 +19,8 @@
     position: absolute;
     top: 0;
     left: 0;
+    width: 32px;
+    height: 32px;
   }
 
   .img {
@@ -47,5 +49,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .cart-btn {
+    width: 32px;
+    height: 32px;
   }
 }

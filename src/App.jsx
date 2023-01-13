@@ -39,7 +39,12 @@ function App() {
     initialLoading();
   }, []);
 
-  const handleItemUpdate = async (item) => {
+  const addToFavorite = async (item) => {
+    await api.goods.updateGood(item.id, item);
+    fetchData();
+  };
+
+  const addToCart = async (item) => {
     await api.goods.updateGood(item.id, item);
     fetchData();
   };
@@ -54,10 +59,10 @@ function App() {
     <AppContext.Provider value={contextValue}>
       <Router>
         <div className={styles.wrapper}>
-          <Header updateItem={handleItemUpdate} />
+          <Header updateItem={addToCart} />
           <Routes>
-            <Route path="/" element={<Home updateItem={handleItemUpdate} />} />
-            <Route path="/favorites" element={<Favorites updateItem={handleItemUpdate} />} />
+            <Route path="/" element={<Home addToFavorite={addToFavorite} addToCart={addToCart} />} />
+            <Route path="/favorites" element={<Favorites addToFavorite={addToFavorite} addToCart={addToCart} />} />
           </Routes>
         </div>
       </Router>

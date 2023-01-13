@@ -5,7 +5,7 @@ import styles from './Home.module.scss';
 import CardsList from '../components/CardsList';
 import CardSkeleton from '../components/CardSkeleton';
 
-function Home({ updateItem }) {
+function Home({ addToFavorite, addToCart }) {
   const { goods } = useContext(AppContext);
   const { loading } = useContext(AppContext);
 
@@ -30,7 +30,8 @@ function Home({ updateItem }) {
           : (
             <CardsList
               cards={goods}
-              updateItem={updateItem}
+              addToFavorite={addToFavorite}
+              addToCart={addToCart}
             />
           )
       }
@@ -39,7 +40,8 @@ function Home({ updateItem }) {
 }
 
 Home.propTypes = {
-  updateItem: PropTypes.func.isRequired,
+  addToFavorite: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default Home;

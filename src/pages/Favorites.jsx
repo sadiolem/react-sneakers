@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import AppContext from '../context';
 import styles from './Favorites.module.scss';
 import CardsList from '../components/CardsList';
-import FavoritesEmpty from '../components/FavoritesEmpty.jsx';
+import FavoritesEmpty from '../components/FavoritesEmpty';
+import CardSkeleton from '../components/CardSkeleton';
 
-function Favorites({ updateItem }) {
+function Favorites({ addToFavorite, addToCart }) {
+  const { loading } = useContext(AppContext);
   const { favoriteItems } = useContext(AppContext);
 
   return (
@@ -13,11 +15,25 @@ function Favorites({ updateItem }) {
       <h1 className={styles['favorites-title']}>Мои закладки</h1>
 
       {
-        favoriteItems.length
+        loading && (
+        <div className={styles['skeleton-cards-list']}>
+          {
+            [...Array(12)].map((_, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <CardSkeleton key={index} />
+            ))
+          }
+        </div>
+        )
+      }
+
+      {
+        !loading && favoriteItems.length
           ? (
             <CardsList
               cards={favoriteItems}
-              updateItem={updateItem}
+              addToFavorite={addToFavorite}
+              addToCart={addToCart}
             />
           )
           : <FavoritesEmpty />
@@ -28,7 +44,8 @@ function Favorites({ updateItem }) {
 }
 
 Favorites.propTypes = {
-  updateItem: PropTypes.func.isRequired,
+  addToFavorite: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default Favorites;
