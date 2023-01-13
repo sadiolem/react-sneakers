@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
+import priceFormat from '../utils/priceFormat.js';
 import styles from './CartCard.module.scss';
 
 function CartCard({ item, updateItem }) {
@@ -25,7 +26,7 @@ function CartCard({ item, updateItem }) {
       <img src={`./img/goods/${item.image}`} width={70} height={70} className={styles.image} alt="" />
       <div className={styles['info-wrapper']}>
         <p>{item.name}</p>
-        <p className={styles.price}>{`${item.price} руб.`}</p>
+        <p className={styles.price}>{`${priceFormat(item.price)}`}</p>
       </div>
       <button type="button" aria-label="remove from cart" onClick={handleRemoveClick}>
         <img src="./img/ui-icons/FluentDelete.svg" height={24} width={24} alt="" />

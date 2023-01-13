@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import priceFormat from '../utils/priceFormat';
 import styles from './HeaderNav.module.scss';
 import Drawer from './Drawer';
 import Cart from './Cart';
@@ -32,7 +33,7 @@ function HeaderNav({ updateItem }) {
 
         <button type="button" className={styles['cart-button']} onClick={openDrawer}>
           <img src="./img/ui-icons/FluentCart.svg" height={24} width={24} alt="cart" />
-          {`${totalCartPrice} руб.`}
+          {`${priceFormat(totalCartPrice)}`}
         </button>
 
         <NavLink to="/favorites">

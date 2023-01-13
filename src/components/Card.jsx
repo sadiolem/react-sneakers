@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import priceFormat from '../utils/priceFormat';
 import styles from './Card.module.scss';
 import BaseLoaderSpinner from './BaseLoaderSpinner';
 
@@ -57,7 +58,7 @@ function Card({ item, addToFavorite, addToCart }) {
         <div className={styles['price-and-cart-btn']}>
           <div className={styles['price-wrapper']}>
             <p className={styles['price-title']}>Цена:</p>
-            <p className={styles.price}>{`${item.price} руб.`}</p>
+            <p className={styles.price}>{`${priceFormat(item.price)}`}</p>
           </div>
 
           <button
