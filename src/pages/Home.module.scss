@@ -19,6 +19,23 @@
     }
   }
 
+  .controls {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    @include mobile-max {
+      gap: 10px;
+      flex-direction: column;
+      width: 100%;
+
+      .search,
+      .sort {
+        min-width: 100%;
+      }
+    }
+  }
+
   .skeleton-cards-list {
     @include skeleton-cards-list;
   }

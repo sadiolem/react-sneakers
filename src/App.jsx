@@ -6,6 +6,7 @@ import {
 import {
   useEffect, useState, useMemo,
 } from 'react';
+import { debounce } from 'lodash';
 import styles from './App.module.scss';
 import Header from './components/Header';
 import Home from './pages/Home';
@@ -18,6 +19,7 @@ function App() {
   const [searchParams, setSearchParams] = useState({
     sortBy: '',
     order: '',
+    name: '',
   });
   const [goods, setGoods] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
@@ -72,6 +74,18 @@ function App() {
     }
   };
 
+  const searchItems = async (searchValue) => {
+    setSearchParams((prev) => ({
+      ...prev,
+      name: searchValue,
+    }));
+  };
+
+  const debouncedEventHandler = useMemo(
+    () => debounce(searchItems, 300),
+    [],
+  );
+
   const addToFavorite = async (item) => {
     await api.goods.updateGood(item.id, item);
     fetchAppData();
@@ -94,7 +108,7 @@ function App() {
         <div className={styles.wrapper}>
           <Header updateItem={addToCart} />
           <Routes>
-            <Route path="/" element={<Home sortItems={sortItems} addToFavorite={addToFavorite} addToCart={addToCart} />} />
+            <Route path="/" element={<Home sortItems={sortItems} searchItems={debouncedEventHandler} addToFavorite={addToFavorite} addToCart={addToCart} />} />
             <Route path="/favorites" element={<Favorites addToFavorite={addToFavorite} addToCart={addToCart} />} />
           </Routes>
         </div>

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import styles from './SortSelect.module.scss';
 
-function SortSelect({ onChange, options }) {
+function SortSelect({ onChange, options, className }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(options[0].title);
 
@@ -17,7 +17,7 @@ function SortSelect({ onChange, options }) {
   };
 
   return (
-    <div className={styles['sort-select']}>
+    <div className={`${styles['sort-select']} ${className}`}>
       <button type="button" className={`${styles.selected} ${isOpen && styles.opened}`} onClick={toggleOpen}>
         {selectedValue}
       </button>
@@ -53,6 +53,7 @@ SortSelect.defaultProps = {
       title: 'По убыванию цены',
     },
   ],
+  className: '',
 };
 
 SortSelect.propTypes = {
@@ -61,6 +62,7 @@ SortSelect.propTypes = {
     value: PropTypes.string,
     title: PropTypes.string,
   })),
+  className: PropTypes.string,
 };
 
 export default SortSelect;

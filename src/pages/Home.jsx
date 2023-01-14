@@ -5,8 +5,11 @@ import styles from './Home.module.scss';
 import CardsList from '../components/CardsList';
 import CardSkeleton from '../components/CardSkeleton';
 import SortSelect from '../components/SortSelect';
+import BaseInput from '../components/BaseInput';
 
-function Home({ sortItems, addToFavorite, addToCart }) {
+function Home({
+  sortItems, searchItems, addToFavorite, addToCart,
+}) {
   const { goods } = useContext(AppContext);
   const { loading } = useContext(AppContext);
 
@@ -19,7 +22,10 @@ function Home({ sortItems, addToFavorite, addToCart }) {
       <div className={styles['title-and-sort']}>
         <h1 className={styles['home-title']}>Все кроссовки</h1>
 
-        <SortSelect onChange={changeSort} />
+        <div className={styles.controls}>
+          <BaseInput type="search" placeholder="Поиск" className={styles.search} onChange={searchItems} />
+          <SortSelect className={styles.sort} onChange={changeSort} />
+        </div>
       </div>
 
       {
@@ -48,6 +54,7 @@ function Home({ sortItems, addToFavorite, addToCart }) {
 
 Home.propTypes = {
   sortItems: PropTypes.func.isRequired,
+  searchItems: PropTypes.func.isRequired,
   addToFavorite: PropTypes.func.isRequired,
   addToCart: PropTypes.func.isRequired,
 };

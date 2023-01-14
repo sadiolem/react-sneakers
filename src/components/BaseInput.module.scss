@@ -1,0 +1,10 @@
+.base-input {
+  min-width: 200px;
+  padding: 5px 15px;
+  border: 1px solid #000;
+  border-radius: 18px;
+
+  &::-webkit-search-cancel-button{
+    margin-left: 10px;
+  }
+}
