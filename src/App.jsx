@@ -28,6 +28,7 @@ function App() {
 
     if (data) {
       setGoods(data);
+      // ONE ENDPOINT FOR ALL ITEMS ONLY BECAUSE OF MOCKAPI
       setFavoriteItems(data.filter((item) => item.isFavorite));
       setCartItems(data.filter((item) => item.isAdded));
     }
