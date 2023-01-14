@@ -11,6 +11,11 @@ function SortSelect({ onChange, options, className }) {
   }
 
   const handleSelect = (option) => {
+    if (option.title === selectedValue) {
+      toggleOpen();
+      return;
+    }
+
     setSelectedValue(option.title);
     toggleOpen();
     onChange(option.value);
