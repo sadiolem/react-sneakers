@@ -15,17 +15,16 @@ import AppContext from './context';
 
 function App() {
   const [loading, setLoading] = useState(false);
+  const [searchParams, setSearchParams] = useState({
+    sortBy: '',
+    order: '',
+  });
   const [goods, setGoods] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
-  const fetchParams = {
-    sortBy: '',
-    order: '',
-  };
-
   const fetchData = async () => {
-    const data = await api.goods.getGoods(fetchParams);
+    const data = await api.goods.getGoods(searchParams);
 
     if (data) {
       setGoods(data);
@@ -44,16 +43,32 @@ function App() {
     initialLoading();
   }, []);
 
-  const sortItems = (sortValue) => {
-    if (sortValue) {
-      fetchParams.sortBy = 'price';
-      fetchParams.order = sortValue;
-    } else {
-      fetchParams.sortBy = '';
-      fetchParams.order = '';
-    }
+  const fetchHomeItems = async () => {
+    const data = await api.goods.getGoods(searchParams);
 
-    fetchData();
+    if (data) {
+      setGoods(data);
+    }
+  };
+
+  useEffect(() => {
+    fetchHomeItems();
+  }, [searchParams]);
+
+  const sortItems = async (sortValue) => {
+    if (sortValue) {
+      setSearchParams((prev) => ({
+        ...prev,
+        sortBy: 'price',
+        order: sortValue,
+      }));
+    } else {
+      setSearchParams((prev) => ({
+        ...prev,
+        sortBy: '',
+        order: '',
+      }));
+    }
   };
 
   const addToFavorite = async (item) => {

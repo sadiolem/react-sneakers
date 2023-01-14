@@ -18,7 +18,9 @@ function SortSelect({ onChange, options }) {
 
   return (
     <div className={styles['sort-select']}>
-      <button type="button" className={`${styles.selected} ${isOpen && styles.opened}`} onClick={toggleOpen}>{selectedValue}</button>
+      <button type="button" className={`${styles.selected} ${isOpen && styles.opened}`} onClick={toggleOpen}>
+        {selectedValue}
+      </button>
       {
         isOpen
           && (
