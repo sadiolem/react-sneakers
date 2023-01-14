@@ -107,8 +107,20 @@ function App() {
       <Router>
         <div className={styles.wrapper}>
           <Header updateItem={addToCart} />
+
           <Routes>
-            <Route path="/" element={<Home sortItems={sortItems} searchItems={debouncedEventHandler} addToFavorite={addToFavorite} addToCart={addToCart} />} />
+            <Route
+              path="/"
+              element={(
+                <Home
+                  sortItems={sortItems}
+                  searchItems={debouncedEventHandler}
+                  addToFavorite={addToFavorite}
+                  addToCart={addToCart}
+                />
+              )}
+            />
+
             <Route path="/favorites" element={<Favorites addToFavorite={addToFavorite} addToCart={addToCart} />} />
           </Routes>
         </div>
