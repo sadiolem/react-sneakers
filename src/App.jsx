@@ -20,7 +20,7 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
 
   const fetchParams = {
-    sortBy: 'name',
+    sortBy: '',
     order: '',
   };
 
@@ -49,7 +49,7 @@ function App() {
       fetchParams.sortBy = 'price';
       fetchParams.order = sortValue;
     } else {
-      fetchParams.sortBy = 'name';
+      fetchParams.sortBy = '';
       fetchParams.order = '';
     }
 
