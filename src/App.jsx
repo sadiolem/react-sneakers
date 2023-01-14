@@ -23,7 +23,7 @@ function App() {
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
-  const fetchData = async () => {
+  const fetchAppData = async () => {
     const data = await api.goods.getGoods(searchParams);
 
     if (data) {
@@ -36,7 +36,7 @@ function App() {
   useEffect(() => {
     async function initialLoading() {
       setLoading(true);
-      await fetchData();
+      await fetchAppData();
       setLoading(false);
     }
 
@@ -73,12 +73,12 @@ function App() {
 
   const addToFavorite = async (item) => {
     await api.goods.updateGood(item.id, item);
-    fetchData();
+    fetchAppData();
   };
 
   const addToCart = async (item) => {
     await api.goods.updateGood(item.id, item);
-    fetchData();
+    fetchAppData();
   };
 
   const contextValue = useMemo(() => (
