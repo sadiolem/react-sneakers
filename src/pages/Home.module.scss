@@ -7,8 +7,16 @@
     padding: 20px;
   }
 
-  .home-title {
+  .title-and-sort {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 40px;
+
+    @include mobile-max {
+      gap: 20px;
+      flex-direction: column;
+    }
   }
 
   .skeleton-cards-list {

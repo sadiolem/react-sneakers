@@ -19,8 +19,13 @@ function App() {
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
+  const fetchParams = {
+    sortBy: 'name',
+    order: '',
+  };
+
   const fetchData = async () => {
-    const data = await api.goods.getGoods();
+    const data = await api.goods.getGoods(fetchParams);
 
     if (data) {
       setGoods(data);
@@ -38,6 +43,18 @@ function App() {
 
     initialLoading();
   }, []);
+
+  const sortItems = (sortValue) => {
+    if (sortValue) {
+      fetchParams.sortBy = 'price';
+      fetchParams.order = sortValue;
+    } else {
+      fetchParams.sortBy = 'name';
+      fetchParams.order = '';
+    }
+
+    fetchData();
+  };
 
   const addToFavorite = async (item) => {
     await api.goods.updateGood(item.id, item);
@@ -61,7 +78,7 @@ function App() {
         <div className={styles.wrapper}>
           <Header updateItem={addToCart} />
           <Routes>
-            <Route path="/" element={<Home addToFavorite={addToFavorite} addToCart={addToCart} />} />
+            <Route path="/" element={<Home sortItems={sortItems} addToFavorite={addToFavorite} addToCart={addToCart} />} />
             <Route path="/favorites" element={<Favorites addToFavorite={addToFavorite} addToCart={addToCart} />} />
           </Routes>
         </div>

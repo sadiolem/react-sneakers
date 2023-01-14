@@ -4,15 +4,22 @@ import AppContext from '../context';
 import styles from './Home.module.scss';
 import CardsList from '../components/CardsList';
 import CardSkeleton from '../components/CardSkeleton';
+import SortSelect from '../components/SortSelect';
 
-function Home({ addToFavorite, addToCart }) {
+function Home({ sortItems, addToFavorite, addToCart }) {
   const { goods } = useContext(AppContext);
   const { loading } = useContext(AppContext);
 
+  const changeSort = (sortValue) => {
+    sortItems(sortValue);
+  };
+
   return (
     <main className={styles.home}>
-      <div>
+      <div className={styles['title-and-sort']}>
         <h1 className={styles['home-title']}>Все кроссовки</h1>
+
+        <SortSelect onChange={changeSort} />
       </div>
 
       {
@@ -40,6 +47,7 @@ function Home({ addToFavorite, addToCart }) {
 }
 
 Home.propTypes = {
+  sortItems: PropTypes.func.isRequired,
   addToFavorite: PropTypes.func.isRequired,
   addToCart: PropTypes.func.isRequired,
 };
