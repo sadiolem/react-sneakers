@@ -62,11 +62,8 @@ function SortSelect({ onChange, options, className }) {
     }
 
     switch (e.key) {
-      case (ENTER_KEY):
-        selectValue(e, option);
-        break;
-
-      case (SPACEBAR_KEY):
+      case ENTER_KEY:
+      case SPACEBAR_KEY:
         selectValue(e, option);
         break;
 
