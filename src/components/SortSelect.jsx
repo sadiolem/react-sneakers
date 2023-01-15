@@ -5,8 +5,8 @@ import styles from './SortSelect.module.scss';
 function SortSelect({ onChange, options, className }) {
   const SPACEBAR_KEY = ' ';
   const ENTER_KEY = 'Enter';
-  const DOWN_ARROW_KEY = 40;
-  const UP_ARROW_KEY = 38;
+  // const DOWN_ARROW_KEY = 40;
+  // const UP_ARROW_KEY = 38;
   const ESCAPE_KEY = 'Escape';
 
   const [isOpen, setIsOpen] = useState(false);
@@ -31,12 +31,12 @@ function SortSelect({ onChange, options, className }) {
       // );
     }
 
-    // if (e.keyCode === DOWN_ARROW_KEY_CODE) {
-    //   focusNextListItem(DOWN_ARROW_KEY_CODE);
+    // if (e.keyCode === DOWN_ARROW_KEY) {
+    //   focusNextListItem(DOWN_ARROW_KEY);
     // }
     //
-    // if (e.keyCode === UP_ARROW_KEY_CODE) {
-    //   focusNextListItem(UP_ARROW_KEY_CODE);
+    // if (e.keyCode === UP_ARROW_KEY) {
+    //   focusNextItem(UP_ARROW_KEY);
     // }
   }
 
@@ -70,13 +70,13 @@ function SortSelect({ onChange, options, className }) {
         selectValue(e, option);
         break;
 
-      case DOWN_ARROW_KEY:
-        // focusNextListItem(DOWN_ARROW_KEY_CODE);
-        break;
-
-      case UP_ARROW_KEY:
-        // focusNextListItem(UP_ARROW_KEY_CODE);
-        break;
+        // case DOWN_ARROW_KEY:
+        //   focusNexItem(DOWN_ARROW_KEY);
+        //   break;
+        //
+        // case UP_ARROW_KEY:
+        //   focusNextItem(UP_ARROW_KEY);
+        //   break;
 
       case ESCAPE_KEY:
         toggleDropDownVisibility(e);
