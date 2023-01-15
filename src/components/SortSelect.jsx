@@ -3,43 +3,120 @@ import { useState } from 'react';
 import styles from './SortSelect.module.scss';
 
 function SortSelect({ onChange, options, className }) {
+  const SPACEBAR_KEY = ' ';
+  const ENTER_KEY = 'Enter';
+  const DOWN_ARROW_KEY = 40;
+  const UP_ARROW_KEY = 38;
+  const ESCAPE_KEY = 'Escape';
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(options[0].title);
 
-  function toggleOpen() {
-    setIsOpen(!isOpen);
+  function closeDropDown() {
+    setIsOpen(false);
+    // listContainer.setAttribute('aria-expanded', false);
   }
 
-  const handleSelect = (option) => {
-    if (option.title === selectedValue) {
-      toggleOpen();
-      return;
+  function toggleDropDownVisibility(e) {
+    const openDropDown = e.key === SPACEBAR_KEY || e.key === ENTER_KEY;
+
+    if (e.key === ESCAPE_KEY) {
+      closeDropDown();
     }
 
+    if (e.type === 'click' || openDropDown) {
+      setIsOpen(!isOpen);
+      // listContainer.setAttribute(
+      //   'aria-expanded',
+      // );
+    }
+
+    // if (e.keyCode === DOWN_ARROW_KEY_CODE) {
+    //   focusNextListItem(DOWN_ARROW_KEY_CODE);
+    // }
+    //
+    // if (e.keyCode === UP_ARROW_KEY_CODE) {
+    //   focusNextListItem(UP_ARROW_KEY_CODE);
+    // }
+  }
+
+  const selectValue = (e, option) => {
+    toggleDropDownVisibility(e);
     setSelectedValue(option.title);
-    toggleOpen();
     onChange(option.value);
   };
 
+  const handleItemClick = (e, option) => {
+    if (option.title === selectedValue) {
+      toggleDropDownVisibility(e);
+      return;
+    }
+
+    selectValue(e, option);
+  };
+
+  const handleKeyDown = (e, option) => {
+    if (option.title === selectedValue) {
+      toggleDropDownVisibility(e);
+      return;
+    }
+
+    switch (e.key) {
+      case (ENTER_KEY):
+        selectValue(e, option);
+        break;
+
+      case (SPACEBAR_KEY):
+        selectValue(e, option);
+        break;
+
+      case DOWN_ARROW_KEY:
+        // focusNextListItem(DOWN_ARROW_KEY_CODE);
+        break;
+
+      case UP_ARROW_KEY:
+        // focusNextListItem(UP_ARROW_KEY_CODE);
+        break;
+
+      case ESCAPE_KEY:
+        toggleDropDownVisibility(e);
+        break;
+
+      default:
+    }
+  };
+
   return (
-    <div className={`${styles['sort-select']} ${className}`}>
-      <button type="button" className={`${styles.selected} ${isOpen && styles.opened}`} onClick={toggleOpen}>
+    <ul className={`${styles['sort-select']} ${className}`}>
+      <li
+        role="button"
+        tabIndex="0"
+        className={`${styles.selected} ${isOpen && styles.opened}`}
+        onKeyDown={toggleDropDownVisibility}
+        onClick={toggleDropDownVisibility}
+      >
         {selectedValue}
-      </button>
+      </li>
       {
         isOpen
           && (
-          <div className={styles.dropdown}>
-            {
-              options.map((option, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <SortItem key={index} option={option} onItemClick={handleSelect} />
-              ))
-            }
-          </div>
+          <li aria-expanded="false" role="list" className={styles.dropdown}>
+            <ul role="listbox">
+              {
+                options.map((option, index) => (
+                  <SortItem
+                    key={index}
+                    option={option}
+                    onItemClick={handleItemClick}
+                    onItemKeyDown={handleKeyDown}
+                  />
+                ))
+              }
+            </ul>
+          </li>
           )
       }
-    </div>
+    </ul>
   );
 }
 
@@ -72,13 +149,17 @@ SortSelect.propTypes = {
 
 export default SortSelect;
 
-function SortItem({ option, onItemClick }) {
-  const handleClick = () => {
-    onItemClick(option);
+function SortItem({ option, onItemClick, onItemKeyDown }) {
+  const handleClick = (e) => {
+    onItemClick(e, option);
+  };
+
+  const handleKeyDown = (e) => {
+    onItemKeyDown(e, option);
   };
 
   return (
-    <button type="button" onClick={handleClick}>{ option.title }</button>
+    <li tabIndex="0" role="option" onKeyDown={handleKeyDown} onClick={handleClick}>{ option.title }</li>
   );
 }
 
@@ -88,4 +169,5 @@ SortItem.propTypes = {
     title: PropTypes.string,
   }).isRequired,
   onItemClick: PropTypes.func.isRequired,
+  onItemKeyDown: PropTypes.func.isRequired,
 };
