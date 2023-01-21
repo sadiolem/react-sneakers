@@ -19,22 +19,17 @@ import SignUp from './components/SignUp';
 
 function App() {
   const [loading, setLoading] = useState(false);
-  // const [searchParams, setSearchParams] = useState({
-  //   sortBy: '',
-  //   order: '',
-  //   name: '',
-  // });
+  const [searchParams, setSearchParams] = useState({
+    sortBy: '',
+    order: '',
+    name: '',
+  });
   const [goods, setGoods] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [isSignedIn, setIsSignedIn] = useState(localStorage.getItem('AuthToken'));
   const navigate = useNavigate();
   const initialRender = useRef(true);
-  const searchParams = {
-    sortBy: '',
-    order: '',
-    name: '',
-  };
 
   const fetchAppData = async () => {
     const data = await api.goods.getGoods(searchParams);
@@ -57,7 +52,7 @@ function App() {
     }
 
     initialLoading();
-  }, []);
+  }, [isSignedIn]);
 
   useEffect(() => {
     setIsSignedIn(localStorage.getItem('AuthToken'));
@@ -81,21 +76,38 @@ function App() {
     }
   };
 
-  const sortItems = async (sortValue) => {
-    if (sortValue) {
-      searchParams.sortBy = 'price';
-      searchParams.order = sortValue;
-    } else {
-      searchParams.sortBy = '';
-      searchParams.order = '';
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+      return;
     }
 
+    if (!isSignedIn) return;
+
     fetchHomeItems();
+  }, [searchParams]);
+
+  const sortItems = async (sortValue) => {
+    if (sortValue) {
+      setSearchParams((prev) => ({
+        ...prev,
+        sortBy: 'price',
+        order: sortValue,
+      }));
+    } else {
+      setSearchParams((prev) => ({
+        ...prev,
+        sortBy: '',
+        order: '',
+      }));
+    }
   };
 
   const searchItems = async (searchValue) => {
-    searchParams.name = searchValue;
-    fetchHomeItems();
+    setSearchParams((prev) => ({
+      ...prev,
+      name: searchValue,
+    }));
   };
 
   const debouncedEventHandler = useMemo(
