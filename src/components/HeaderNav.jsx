@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import priceFormat from '../utils/priceFormat';
@@ -8,9 +8,10 @@ import Cart from './Cart';
 import AppContext from '../context';
 
 function HeaderNav({ updateItem }) {
-  const { cartItems } = useContext(AppContext);
+  const { cartItems, isSignedIn } = useContext(AppContext);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [totalCartPrice, setTotalCartPrice] = useState();
+  const navigate = useNavigate();
 
   const openDrawer = () => {
     setIsDrawerOpen(true);
@@ -23,6 +24,11 @@ function HeaderNav({ updateItem }) {
   useEffect(() => {
     setTotalCartPrice(cartItems.reduce((acc, prev) => acc + prev.price, 0));
   });
+
+  const handleLogout = () => {
+    localStorage.removeItem('AuthToken');
+    navigate('/signin');
+  };
 
   return (
     <div className={styles['header-nav']}>
@@ -39,6 +45,15 @@ function HeaderNav({ updateItem }) {
         <NavLink to="/favorites">
           <img src="./img/ui-icons/FluentHeartOutlined.svg" height={24} width={24} alt="favorites" />
         </NavLink>
+
+        {
+          isSignedIn
+            && (
+            <button type="button" onClick={handleLogout}>
+              Sign out
+            </button>
+            )
+        }
       </div>
 
       <Drawer isOpen={isDrawerOpen} close={closeDrawer}>

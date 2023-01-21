@@ -1,18 +1,21 @@
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
+  useNavigate,
 } from 'react-router-dom';
 import {
   useEffect, useState, useMemo,
 } from 'react';
 import { debounce } from 'lodash';
+import api from './api';
+import AppContext from './context';
+import '../firebase-config';
 import styles from './App.module.scss';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
-import api from './api';
-import AppContext from './context';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -24,6 +27,8 @@ function App() {
   const [goods, setGoods] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [isSignedIn, setIsSignedIn] = useState(localStorage.getItem('AuthToken'));
+  const navigate = useNavigate();
 
   const fetchAppData = async () => {
     const data = await api.goods.getGoods(searchParams);
@@ -45,6 +50,18 @@ function App() {
 
     initialLoading();
   }, []);
+
+  useEffect(() => {
+    setIsSignedIn(localStorage.getItem('AuthToken'));
+  });
+
+  useEffect(() => {
+    if (isSignedIn) {
+      navigate('/');
+    } else {
+      navigate('/signin');
+    }
+  }, [isSignedIn]);
 
   const fetchHomeItems = async () => {
     const data = await api.goods.getGoods(searchParams);
@@ -98,33 +115,37 @@ function App() {
 
   const contextValue = useMemo(() => (
     {
-      loading, goods, favoriteItems, cartItems,
+      loading, goods, favoriteItems, cartItems, isSignedIn,
     }
-  ), [loading, goods, favoriteItems, cartItems]);
+  ), [loading, goods, favoriteItems, cartItems, isSignedIn]);
 
   return (
     <AppContext.Provider value={contextValue}>
-      <Router>
-        <div className={styles.wrapper}>
-          <Header updateItem={addToCart} />
+      <div className={styles.wrapper}>
+        {
+          isSignedIn
+            && <Header updateItem={addToCart} />
+        }
 
-          <Routes>
-            <Route
-              path="/"
-              element={(
-                <Home
-                  sortItems={sortItems}
-                  searchItems={debouncedEventHandler}
-                  addToFavorite={addToFavorite}
-                  addToCart={addToCart}
-                />
+        <Routes>
+          <Route
+            path="/"
+            element={(
+              <Home
+                sortItems={sortItems}
+                searchItems={debouncedEventHandler}
+                addToFavorite={addToFavorite}
+                addToCart={addToCart}
+              />
               )}
-            />
+          />
 
-            <Route path="/favorites" element={<Favorites addToFavorite={addToFavorite} addToCart={addToCart} />} />
-          </Routes>
-        </div>
-      </Router>
+          <Route path="/favorites" element={<Favorites addToFavorite={addToFavorite} addToCart={addToCart} />} />
+
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+      </div>
     </AppContext.Provider>
   );
 }
