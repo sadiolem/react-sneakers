@@ -4,7 +4,7 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import {
-  useEffect, useState, useMemo,
+  useEffect, useState, useMemo, useRef,
 } from 'react';
 import { debounce } from 'lodash';
 import api from './api';
@@ -29,6 +29,7 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isSignedIn, setIsSignedIn] = useState(localStorage.getItem('AuthToken'));
   const navigate = useNavigate();
+  const initialRender = useRef(true);
 
   const fetchAppData = async () => {
     const data = await api.goods.getGoods(searchParams);
@@ -42,6 +43,8 @@ function App() {
   };
 
   useEffect(() => {
+    if (!isSignedIn) return;
+
     async function initialLoading() {
       setLoading(true);
       await fetchAppData();
@@ -64,7 +67,9 @@ function App() {
   }, [isSignedIn]);
 
   const fetchHomeItems = async () => {
+    setLoading(true);
     const data = await api.goods.getGoods(searchParams);
+    setLoading(false);
 
     if (data) {
       setGoods(data);
@@ -72,6 +77,13 @@ function App() {
   };
 
   useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+      return;
+    }
+
+    if (!isSignedIn) return;
+
     fetchHomeItems();
   }, [searchParams]);
 
