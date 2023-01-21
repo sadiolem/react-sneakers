@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCh10t4OIFX4nRdVN9bYRa0QUhuToO6nYg',
+  apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
   authDomain: 'react-sneakers-f36fe.firebaseapp.com',
   projectId: 'react-sneakers-f36fe',
   storageBucket: 'react-sneakers-f36fe.appspot.com',
