@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './BaseInput.module.scss';
 
 function BaseInput({
@@ -7,11 +7,8 @@ function BaseInput({
 }) {
   const [inputValue, setInputValue] = useState(value);
 
-  useEffect(() => {
-    onChange(inputValue);
-  }, [inputValue]);
-
   function handleInput({ target }) {
+    onChange(target.value);
     setInputValue(target.value);
   }
 

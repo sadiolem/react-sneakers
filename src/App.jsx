@@ -19,17 +19,22 @@ import SignUp from './components/SignUp';
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [searchParams, setSearchParams] = useState({
-    sortBy: '',
-    order: '',
-    name: '',
-  });
+  // const [searchParams, setSearchParams] = useState({
+  //   sortBy: '',
+  //   order: '',
+  //   name: '',
+  // });
   const [goods, setGoods] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [isSignedIn, setIsSignedIn] = useState(localStorage.getItem('AuthToken'));
   const navigate = useNavigate();
   const initialRender = useRef(true);
+  const searchParams = {
+    sortBy: '',
+    order: '',
+    name: '',
+  };
 
   const fetchAppData = async () => {
     const data = await api.goods.getGoods(searchParams);
@@ -76,38 +81,21 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false;
-      return;
-    }
-
-    if (!isSignedIn) return;
-
-    fetchHomeItems();
-  }, [searchParams]);
-
   const sortItems = async (sortValue) => {
     if (sortValue) {
-      setSearchParams((prev) => ({
-        ...prev,
-        sortBy: 'price',
-        order: sortValue,
-      }));
+      searchParams.sortBy = 'price';
+      searchParams.order = sortValue;
     } else {
-      setSearchParams((prev) => ({
-        ...prev,
-        sortBy: '',
-        order: '',
-      }));
+      searchParams.sortBy = '';
+      searchParams.order = '';
     }
+
+    fetchHomeItems();
   };
 
   const searchItems = async (searchValue) => {
-    setSearchParams((prev) => ({
-      ...prev,
-      name: searchValue,
-    }));
+    searchParams.name = searchValue;
+    fetchHomeItems();
   };
 
   const debouncedEventHandler = useMemo(
